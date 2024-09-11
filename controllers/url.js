@@ -1,5 +1,3 @@
-const express = require("express")
-const mongoose = require("mongoose")
 const shortid = require("shortid")
 const URL = require("../models/url")
 
@@ -12,7 +10,8 @@ async function handleCreateShortId(req, res) {
         redirectURL: body.url,
         visitHistory: [],
     })
-    return res.json({ id: randomShortId })
+    // return res.json({ id: randomShortId })
+    return res.render("home", {id: randomShortId})
 }
 
 async function handleGetShortId(req, res) {
@@ -39,8 +38,14 @@ async function handleGetAnalyticsShortId(req, res) {
     })
 }
 
+async function handleServerSideRendering(req, res){
+    const allUrls = await URL.find({})
+    return res.render('home')
+}
+
 module.exports = {
     handleCreateShortId,
     handleGetShortId,
     handleGetAnalyticsShortId,
+    handleServerSideRendering,
 }
