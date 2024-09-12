@@ -9,6 +9,7 @@ async function handleCreateShortId(req, res) {
         shortId: randomShortId,
         redirectURL: body.url,
         visitHistory: [],
+        createdBy: req.user._id,
     })
     // return res.json({ id: randomShortId })
     return res.render("home", {id: randomShortId})
